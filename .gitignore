@@ -1,0 +1,4 @@
+*.pyc
+*.pyo
+.docx.py.kate-swp
+
