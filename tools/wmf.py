@@ -3,7 +3,7 @@
 
 import os,sys,time
 from struct import pack,unpack
-
+from termcolor import colored
 """
 Python Data Format:
 
@@ -256,7 +256,7 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         del sys.argv[0]
         for metafile in sys.argv:
-            print "\t@@ Windows Metafile: %s" %(metafile)
+            print colored("\t@@ Windows Metafile: ", 'red') + colored(metafile, 'green')
             Wmf().decode(open(metafile, 'r').read())
     else:
         print ":: 没有指定任何 WMF 文件."
