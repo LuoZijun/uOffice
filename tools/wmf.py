@@ -5,7 +5,7 @@ import os,sys,time
 from struct import pack,unpack
 from termcolor import colored
 """
-Python Data Format:
+Python Data Format(pack/unpack):
 
     b   8 bit signed integer
     B   8 bit unsigned integer
@@ -242,7 +242,8 @@ class Wmf:
         #header = data[0:18]
         print "Raw: %s" % repr(data[0:18])
         header = unpack("HHHHHHIH", data[0:18])
-        print "Type: %d\tHeaderSize: %d\tVersion: %d\tSizeLow: %d\tSizeHigh: %d\tNumberOfObjects: %d\tMaxRecord: %d\tNumberOfMembers: %d" %( header[0],header[1],header[2],header[3],header[4],header[5],header[6], header[7])
+        print "Type: %d\tHeaderSize: %d\tVersion: %d\tSizeLow: %d\tSizeHigh: %d\tNumberOfObjects: %d\tMaxRecord: %d\tNumberOfMembers: %d"\
+        %( header[0],header[1],header[2],header[3],header[4],header[5],header[6], header[7])
         #self.decode_body(data)
     def PLACEABLE_Record(self,data):
         # Placeable record before WMF Header Record.
