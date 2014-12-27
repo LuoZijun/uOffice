@@ -42,7 +42,7 @@ class Record(RecordBase):
     # Record Function About Type
     # TODO: Need Update record function table.
     """
-    META_EOF = 0x0000,
+    META_EOF = 0x0000,     # Control Record Types
     META_REALIZEPALETTE = 0x0035,
     META_SETPALENTRIES = 0x0037,
     META_SETBKMODE = 0x0102,
@@ -209,7 +209,16 @@ class Record(RecordBase):
         return {'type': record_type, 'size': record_size}
 
 
-class Object:
+
+
+
+
+
+
+"""
+    @@ Windows Metafile Objects 
+"""
+class ObjectBase:
     def __init__(self, data):
         pass
     def list(self):
@@ -219,19 +228,22 @@ class Object:
         # count window metafile object num.
         pass
 
+class Object(ObjectBase):
+    def __init__(self, data):
+        pass
+
 
 class Wmf:
     data = None
-    def __init__(self, data):
+    def __init__(self, data=''):
         pass
     def decode(self, data):
         # Decode Windows Metafile 
         #header = data[0:18]
-        #print "======================"
         print "Raw: %s" % repr(data[0:18])
         header = unpack("HHHHHHIH", data[0:18])
         print "Type: %d\tHeaderSize: %d\tVersion: %d\tSizeLow: %d\tSizeHigh: %d\tNumberOfObjects: %d\tMaxRecord: %d\tNumberOfMembers: %d" %( header[0],header[1],header[2],header[3],header[4],header[5],header[6], header[7])
-        self.decode_body(data)
+        #self.decode_body(data)
     def PLACEABLE_Record(self,data):
         # Placeable record before WMF Header Record.
         # 22 bytes
@@ -242,7 +254,10 @@ class Wmf:
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
-        Wmf().decode(open(sys.argv[1], 'r').read())
+        del sys.argv[0]
+        for metafile in sys.argv:
+            print "\t@@ Windows Metafile: %s" %(metafile)
+            Wmf().decode(open(metafile, 'r').read())
     else:
         print ":: 没有指定任何 WMF 文件."
 
