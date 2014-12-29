@@ -26,7 +26,7 @@ class RecordBase:
         pass
     def list(self):
         # return records of this windows metafile
-        
+        pass
     def count(self):
         # return records of this windows metafile
         pass
