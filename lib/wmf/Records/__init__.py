@@ -12,27 +12,28 @@ RecordFunction (2 bytes): A 16-bit unsigned integer that defines the type
                           record-specific fields.
 """
 
-#from wmf.Constants import RecordType
 import wmf.Constants.RecordType
 
 class RecordBase:
+    # data = windows metafile - windows metafile HEADER_RECORD( + Placeable_RECORD )
     data = None
     def __init__(self, data=None):
         self.data = data
-    @staticmethod
+    #@staticmethod
     def open(self, filename):
         # open windows metafile on disk filesystem.
-        return Record(open(filename, 'rb').read())
+        #return Record(open(filename, 'rb').read())
+        pass
     def list(self):
         # return records of this windows metafile
-        pass
+        
     def count(self):
         # return records of this windows metafile
         pass
 
 class Record(RecordBase):
     def __init__(self, data=None):
-        RecordBase.__init__(self, data=None)
+        RecordBase.__init__(self, data=data)
     def type(self, record):
         # return record type ( RecordFunction )
         record_type = self.header(record)['type']
