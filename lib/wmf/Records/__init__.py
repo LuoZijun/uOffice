@@ -45,17 +45,16 @@ class RecordBase:
         pos = 0
         run = True
         while run == True:
-            data = self.body[pos:pos+6]
-            record_size, record_type  = unpack("IH", data)
-            record_content = self.body[pos+6:record_size]
-            pos += record_size
-            record = {'type': record_type, 'size': record_size, 'content': record_content}
-            records.append( record )
             try:
+                record_size, record_type  = unpack("IH", self.body[pos:pos+6] )
+                record_content = self.body[pos+6:record_size]
+                pos += record_size
                 if wmf.Constants.RecordType.Record_Types[record_type] == "META_EOF":
                     print ":: META_EOF"
                     run = False
                 else:
+                    record = {'type': record_type, 'size': record_size, 'content': record_content}
+                    records.append( record )
                     print record
             except:
                 break
