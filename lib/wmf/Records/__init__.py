@@ -2,6 +2,19 @@
 #-*- coding:utf-8 -*-
 
 """
+
+Python Data Format(pack/unpack):
+    b   8 bit signed integer
+    B   8 bit unsigned integer
+    h   16 bit signed integer
+    H   16 bit unsigned integer
+    l   32 bit signed integer
+    L   32 bit unsigned integer
+    q   64 bit signed integer
+    Q   64 bit unsigned integer
+    f   32 bit floating point number
+    d   64 bit floating point number
+
     RecordSize (4 bytes): A 32-bit unsigned integer that defines the number
                           of 16-bit WORDs in the record.
 RecordFunction (2 bytes): A 16-bit unsigned integer that defines the type
@@ -20,10 +33,6 @@ class RecordBase:
     def __init__(self, data=None):
         self.data = data
     #@staticmethod
-    def open(self, filename):
-        # open windows metafile on disk filesystem.
-        #return Record(open(filename, 'rb').read())
-        pass
     def list(self):
         # return records of this windows metafile
         pass

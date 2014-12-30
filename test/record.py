@@ -16,8 +16,10 @@ import wmf.Constants
 import wmf.Records
 import wmf.Objects
 
-print dir(wmf.Records)
+#print dir(wmf.Records)
 
-r = wmf.Records.Record(data)
-print r
-print dir(r)
+#r = wmf.Records.Record(data)
+#print r
+#print dir(r)
+
+wmf.Wmf(data).decode()
