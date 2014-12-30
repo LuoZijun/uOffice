@@ -1,0 +1,779 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>微软DOCX格式分析</title>
+<meta name="date" content="2014/12/25" />
+<meta name="author" content="Luo Zijun" />
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 7614 2013-02-21 15:55:51Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: grey; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="docx">
+<h1 class="title">微软DOCX格式分析</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr><th class="docinfo-name">Date:</th>
+<td>2014/12/25</td></tr>
+<tr><th class="docinfo-name">Author:</th>
+<td>Luo Zijun</td></tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id10">实现优先级</a></li>
+<li><a class="reference internal" href="#windows-metafile-format-wmf" id="id11">Windows Metafile Format(WMF)</a><ul>
+<li><a class="reference internal" href="#structure" id="id12">Structure(结构)</a><ul>
+<li><a class="reference internal" href="#control-record-types" id="id13">Control Record Types (控制性纪录的类型)</a></li>
+<li><a class="reference internal" href="#header-record" id="id14">Header Record (头部纪录格式)</a></li>
+<li><a class="reference internal" href="#generic-record" id="id15">Generic Record (常规纪录格式)</a></li>
+<li><a class="reference internal" href="#end-of-file-record" id="id16">End-of-File Record ( 结束标识纪录 )</a></li>
+<li><a class="reference internal" href="#meta-placeable-record" id="id17">META_PLACEABLE Record</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#enhanced-metafile-format-emf" id="id18">Enhanced Metafile Format(EMF)</a></li>
+<li><a class="reference internal" href="#math-mark-luanage-mathml" id="id19">Math Mark Luanage(MathML)</a></li>
+<li><a class="reference internal" href="#object-linking-and-embedding-ole" id="id20">Object Linking and Embedding(OLE)</a></li>
+<li><a class="reference internal" href="#id8" id="id21">笔记</a></li>
+<li><a class="reference internal" href="#wmf-header" id="id22">WMF Header 读取代码</a></li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h1><a class="toc-backref" href="#id10">实现优先级</a></h1>
+<ul class="simple">
+<li>Windows Metafile Format(WMF)  难度: 3</li>
+<li>Enhanced Metafile Format(EMF)  难度: 8</li>
+<li>Math Mark Luanage(MathML)  难度: 1</li>
+</ul>
+</div>
+<div class="section" id="windows-metafile-format-wmf">
+<h1><a class="toc-backref" href="#id11">Windows Metafile Format(WMF)</a></h1>
+<p>在 Windows Office 早期版本 以及 金山公司开发的WPS( Office个人版本: 9.1.0.4879 )中，对于 数学公式的编辑、渲染及呈现是采用微软一种早期(Microsoft Windows 3.0开始引入, 16位元的标准)的向量图格式 ( <a class="reference external" href="https://zh.wikipedia.org/wiki/WMF">WMF(维基百科)</a> ) 。WMF格式类似与印刷业广泛使用的PostScript格式(由 Adobe 开发)。</p>
+<p>WMF协议: <a class="reference external" href="http://msdn.microsoft.com/en-us/library/cc250370.aspx">[MS-WMF]: Windows Metafile Format</a></p>
+<p><a class="reference external" href="https://zh.wikipedia.org/wiki/WMF">WMF(维基百科)</a></p>
+<p>Windows Metafile 规范 第三方通俗介绍:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://wvware.sourceforge.net/caolan/ora-wmf.html">http://wvware.sourceforge.net/caolan/ora-wmf.html</a></li>
+<li><a class="reference external" href="http://wvware.sourceforge.net/caolan/">http://wvware.sourceforge.net/caolan/</a></li>
+</ul>
+<p>WMF 解析及转换库:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://wvware.sourceforge.net/libwmf.html">libwmf</a> 支持渲染及转换 WMF 格式文件至 SVG/EPS/FIG/F2X</li>
+<li><a class="reference external" href="http://sk1project.org/modules.php?name=Products&amp;product=uniconvertor&amp;op=download">python-uniconvertor</a> 试用失败 ...</li>
+<li><a class="reference external" href="https://pypi.python.org/pypi/hachoir-metadata/1.2.1">python-hachoir-metadata</a></li>
+</ul>
+<p><strong>安全:</strong></p>
+<p>WMF文件格式漏洞: <a class="reference external" href="https://zh.wikipedia.org/wiki/WMF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E6%BC%8F%E6%B4%9E">https://zh.wikipedia.org/wiki/WMF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E6%BC%8F%E6%B4%9E</a></p>
+<div class="section" id="structure">
+<h2><a class="toc-backref" href="#id12">Structure(结构)</a></h2>
+<p>The WMF specifies structures for defining a graphical image. A WMF metafile contains drawing commands, property definitions, and graphics objects in a series of WMF records. In effect, a WMF metafile is a digital recording of an image, and the recording can be played back to reproduce that image. Because WMF metafiles are application-independent, they can be shared among applications and used for image storage.</p>
+<p>Original WMF metafiles were device-specific; that is, the graphical images they contained would only be rendered correctly if played back on the output device for which they were recorded. To overcome this limitation, &quot;placeable&quot; WMF metafiles were developed, which contain an extension to the standard header with information about the placement and scaling of the image.</p>
+<p>The following figure illustrates the high-level structures of the original and placeable forms of WMF metafile.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="1%" />
+<col width="55%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>WMF Header Record(头部信息)</td>
+<td>&nbsp;</td>
+<td>WMF Placeable Header Record</td>
+</tr>
+<tr><td>WMF Record(常规纪录)</td>
+<td>&nbsp;</td>
+<td>WMF Header Record</td>
+</tr>
+<tr><td>...</td>
+<td>&nbsp;</td>
+<td>WMF Record</td>
+</tr>
+<tr><td>WMF Record</td>
+<td>&nbsp;</td>
+<td>...</td>
+</tr>
+<tr><td>WMF End-of-File Record(结束标识信息)</td>
+<td>&nbsp;</td>
+<td>WMF Record</td>
+</tr>
+<tr><td></td>
+<td>&nbsp;</td>
+<td>WMF End-of-File Record</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="control-record-types">
+<h3><a class="toc-backref" href="#id13">Control Record Types (控制性纪录的类型)</a></h3>
+<p>This section defines the Windows Metafile Format (WMF) Control Record Types, which specify records that begin and end a WMF metafile.
+The following are the Control Record Types:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="13%" />
+<col width="67%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Name</th>
+<th class="head">Section</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>Meta_header</td>
+<td>2.3.2.1</td>
+<td>Specifies The Start Of A Wmf Metafile.</td>
+</tr>
+<tr><td>Meta_eof</td>
+<td>2.3.2.2</td>
+<td>Specifies The End Of A Wmf Metafile.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="header-record">
+<h3><a class="toc-backref" href="#id14">Header Record (头部纪录格式)</a></h3>
+<p>The WMF header record, including:</p>
+<ul class="simple">
+<li>The type of metafile</li>
+<li>The version of metafile</li>
+<li>The size of the metafile</li>
+<li>The number of objects defined in the metafile</li>
+<li>The size of the largest single record in the metafile</li>
+</ul>
+<p>META_HEADER Record:</p>
+<p>The Windows Metafile Format META_HEADER record is the first record in a standard WMF metafile.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+<td>1
+0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+<td>2
+0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+<td>3
+0</td>
+<td>1</td>
+</tr>
+<tr><td colspan="16">Type</td>
+<td colspan="16">HeaderSize</td>
+</tr>
+<tr><td colspan="16">Version</td>
+<td colspan="16">SizeLow</td>
+</tr>
+<tr><td colspan="16">SizeHight</td>
+<td colspan="16">NumberOfObjects</td>
+</tr>
+<tr><td colspan="32">MaxRecord</td>
+</tr>
+<tr><td colspan="16">NumberOfMembers</td>
+<td colspan="16">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p><em>Type (2 bytes):</em> A 16-bit unsigned integer that defines the type of metafile. It MUST be a value in the MetafileType Enumeration table.</p>
+<blockquote>
+MEMORYMETAFILE = 0x0001
+DISKMETAFILE = 0x0002
+MEMORYMETAFILE: Metafile is stored in memory.
+DISKMETAFILE: Metafile is stored on disk.</blockquote>
+<p><em>HeaderSize (2 bytes):</em> A 16-bit unsigned integer that defines the number of 16-bit words in the header.</p>
+<p><em>Version (2 bytes):</em> A 16-bit unsigned integer that defines the metafile version. It MUST be a value in the MetafileVersion Enumeration table.</p>
+<blockquote>
+<p>METAVERSION100 = 0x0100
+METAVERSION300 = 0x0300</p>
+<p>METAVERSION100: DIBs are not supported.
+METAVERSION300: DIBs are supported.</p>
+</blockquote>
+<p><em>SizeLow (2 bytes):</em> A 16-bit unsigned integer that defines the low-order word of the number of 16-bit words in the entire metafile.</p>
+<p><em>SizeHigh (2 bytes):</em> A 16-bit unsigned integer that defines the high-order word of the number of 16-bit words in the entire metafile.
+一个16位无符号(unsigned integer)的整数  定义 high-order(高序位?)字符 在 16 位词的整个图元文件。</p>
+<p><em>NumberOfObjects (2 bytes):</em> A 16-bit unsigned integer that specifies the number of graphics objects that are defined in the entire metafile. These objects include brushes, pens and all the other fixed-length and variable-length objects specified in sections 2.2.1 and 2.2.2 .</p>
+<p><em>MaxRecord (4 bytes):</em> A 32-bit unsigned integer that specifies the size of the largest record used in the metafile (in 16-bit elements).</p>
+<p><em>NumberOfMembers (2 bytes):</em> A 16-bit unsigned integer that is not used. It SHOULD be 0x0000.</p>
+</div>
+<div class="section" id="generic-record">
+<h3><a class="toc-backref" href="#id15">Generic Record (常规纪录格式)</a></h3>
+<p>WMF records have a generic format, the following information:</p>
+<ul class="simple">
+<li>The record size</li>
+<li>The record function</li>
+<li>Parameters, if any, for the record function</li>
+</ul>
+<p>All WMF metafiles are terminated by a WMF end-of-file record.</p>
+<p>所有的 WMF 元文件 必须在 一个 WMF 结束纪录处终结。</p>
+</div>
+<div class="section" id="end-of-file-record">
+<h3><a class="toc-backref" href="#id16">End-of-File Record ( 结束标识纪录 )</a></h3>
+<p>META_EOF Record:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+<td>1
+0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+<td>2
+0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+<td>3
+0</td>
+<td>1</td>
+</tr>
+<tr><td colspan="32">RecordSize</td>
+</tr>
+<tr><td colspan="16">RecordFunction</td>
+<td colspan="16">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p><em>RecordSize (4 bytes):</em> A 32-bit unsigned integer that defines the number of 16-bit WORDs in the record.</p>
+<p><em>RecordFunction (2 bytes):</em> A 16-bit unsigned integer that defines the type of this record. For META_EOF, this value MUST be 0x0000, as specified in the RecordType Enumeration table.</p>
+</div>
+<div class="section" id="meta-placeable-record">
+<h3><a class="toc-backref" href="#id17">META_PLACEABLE Record</a></h3>
+<p>The META_PLACEABLE record is the first record in a placeable WMF metafile, which is an extension
+to the WMF metafile format.&lt;58&gt; The information in this extension allows the specification of the
+placement and size of the target image, which makes it adaptable to different output devices.
+The META_PLACEABLE record MUST be the first record of the metafile, located immediately before
+the META_HEADER record (section 2.3.2.2).</p>
+</div>
+</div>
+</div>
+<div class="section" id="enhanced-metafile-format-emf">
+<h1><a class="toc-backref" href="#id18">Enhanced Metafile Format(EMF)</a></h1>
+<p>在 Windows NT推出时，微软又推出一个32位元的加强版标准，称之为Enhanced Metafile（简称 <a class="reference external" href="https://zh.wikipedia.org/wiki/WMF#.E6.AD.B7.E5.8F.B2">EMF(维基百科)</a> ）。</p>
+<p>EMF维基百科介绍: <a class="reference external" href="https://zh.wikipedia.org/wiki/WMF#.E6.AD.B7.E5.8F.B2">EMF维基百科</a></p>
+<p>EMF协议: <a class="reference external" href="http://msdn.microsoft.com/en-us/library/cc230514.aspx">[MS-EMF]: Enhanced Metafile Format</a></p>
+<p>EMF插件扩展协议: <a class="reference external" href="http://msdn.microsoft.com/en-us/library/cc230724.aspx">[MS-EMFPLUS]: Enhanced Metafile Format Plus Extensions</a></p>
+<p>EMSF协议: <a class="reference external" href="http://msdn.microsoft.com/en-us/library/cc231034.aspx">[MS-EMFSPOOL]: Enhanced Metafile Spool Format</a></p>
+<p>EMF 解析及转换库:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://libemf.sourceforge.net/">libemf</a> libEMF is a C/C++ library which provides a drawing toolkit based on ECMA-234.</li>
+<li><a class="reference external" href="http://sourceforge.net/projects/pyemf/">pyemf</a> Pure Python library for Enhanced Metafile (.emf) ECMA-234 compliant scalable graphics files. (支持编辑 EMF 但是不支持渲染它)</li>
+<li><a class="reference external" href="https://pypi.python.org/pypi/hachoir-metadata/1.2.1">python-hachoir-metadata</a> ( 支持 WMF/EMF/TIFF/XCF/CUR/ICO/BMP/PCX )</li>
+</ul>
+</div>
+<div class="section" id="math-mark-luanage-mathml">
+<h1><a class="toc-backref" href="#id19">Math Mark Luanage(MathML)</a></h1>
+<p>在 Windows Office 2010 当中，经过测试，微软Office中的数学公式在 Word XML 树中的描述已经由 向量图 资源链接 更换成了 <a class="reference external" href="https://developer.mozilla.org/zh-CN/docs/Web/MathML">MathML</a> 标记语言，与 XML结合在一起。这意味着该数学公式的再次编辑将变得更加方便和简单。</p>
+<ul class="simple">
+<li><a class="reference external" href="https://en.wikipedia.org/wiki/MathML">维基百科</a></li>
+<li><a class="reference external" href="http://www.ibm.com/developerworks/cn/xml/x-mathml/index.html">描述数学表达式</a></li>
+</ul>
+</div>
+<div class="section" id="object-linking-and-embedding-ole">
+<h1><a class="toc-backref" href="#id20">Object Linking and Embedding(OLE)</a></h1>
+<p>Object Linking and Embedding:  <a class="reference external" href="http://en.wikipedia.org/wiki/Object_Linking_and_Embedding">OLE维基百科介绍</a> (英文)</p>
+<p>对象连接与嵌入: <a class="reference external" href="http://zh.wikipedia.org/wiki/%E5%AF%B9%E8%B1%A1%E8%BF%9E%E6%8E%A5%E4%B8%8E%E5%B5%8C%E5%85%A5">对象连接与嵌入维基百科介绍</a> (中文简体)</p>
+</div>
+<div class="section" id="id8">
+<h1><a class="toc-backref" href="#id21">笔记</a></h1>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p>Python 对于 WMF 格式的解析库 <a class="reference external" href="http://sk1project.org/modules.php?name=Products&amp;product=uniconvertor&amp;op=download">python-uniconvertor</a> 并不能解析 经过 WPS 或者 Windows Office 生产的 WMF 向量图。</p>
+<p>经查过 uniconvertor 代码，发现是因为 uniconvertor 在检查 WMF 格式文件的 Magic Number ( Header )时，发现并不与 <cite>xd7xcdxc6x9a</cite> 相符。</p>
+<p>初步在查看 <cite>Windows Metafile Format(wmf) Specification</cite> ，发现 规范里面并没有规定 WMF 格式的 Header 为 <cite>xd7xcdxc6x9a</cite> 。</p>
+<p class="last">可以在 GIMP 软件里面打开并被正常查看的 WMF 格式图片 的 Header 经查看 也并非为 <cite>xd7xcdxc6x9a</cite> ，而是 <cite>x01x00tx00</cite> 。在 GIMP 里面无法进行查看的 WMF 向量图 Header 为 <cite>x01x00x00x00</cite>  。</p>
+</div>
+<p>libwmf 项目始于 2000 年之前，最近一次对 反馈的 处理是在 2008年11月。该项目的成员 有来自 Abiword 以及 PrefectWord 的成员, 似乎没有新鲜血液。</p>
+<p>libwmf 对于 极个别的 WMF 格式向量图 无法渲染及转换(Magic Number 无法被识别)。经过测试，确实发现可以被识别的 WMF 向量图 与 不可以被识别的 WMF 向量图 头部确实不一致，但考虑到在 Libreoffice/MS Office 上面可以被正常解析，所以猜测 应该是版本 不兼容问题导致的。待验证 ....</p>
+</div>
+<div class="section" id="wmf-header">
+<h1><a class="toc-backref" href="#id22">WMF Header 读取代码</a></h1>
+<pre class="code python literal-block">
+<span class="comment">#!/usr/bin/env python</span>
+<span class="comment">#-*- coding:utf-8 -*-</span>
+
+<span class="keyword namespace">import</span> <span class="name namespace">os</span><span class="operator">,</span><span class="name namespace">sys</span><span class="operator">,</span><span class="name namespace">time</span>
+<span class="keyword namespace">from</span> <span class="name namespace">struct</span> <span class="keyword namespace">import</span> <span class="name">pack</span><span class="punctuation">,</span><span class="name">unpack</span>
+
+
+<span class="keyword">class</span> <span class="name class">Wmf</span><span class="punctuation">:</span>
+    <span class="keyword">def</span> <span class="name function">__init__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">):</span>
+        <span class="keyword">pass</span>
+    <span class="keyword">def</span> <span class="name function">decode</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">data</span><span class="punctuation">):</span>
+        <span class="comment"># Decode Windows Metafile</span>
+        <span class="comment">#header = data[0:18]</span>
+        <span class="keyword">print</span> <span class="literal string">&quot;======================&quot;</span>
+        <span class="keyword">print</span> <span class="literal string">&quot;Raw: </span><span class="literal string interpol">%s</span><span class="literal string">&quot;</span> <span class="operator">%</span> <span class="name builtin">repr</span><span class="punctuation">(</span><span class="name">data</span><span class="punctuation">[</span><span class="literal number integer">0</span><span class="punctuation">:</span><span class="literal number integer">18</span><span class="punctuation">])</span>
+        <span class="name">header</span> <span class="operator">=</span> <span class="name">unpack</span><span class="punctuation">(</span><span class="literal string">&quot;HHHHHHIH&quot;</span><span class="punctuation">,</span> <span class="name">data</span><span class="punctuation">[</span><span class="literal number integer">0</span><span class="punctuation">:</span><span class="literal number integer">18</span><span class="punctuation">])</span>
+        <span class="keyword">print</span> <span class="literal string">&quot;Type: </span><span class="literal string interpol">%d</span><span class="literal string escape">\t</span><span class="literal string">HeaderSize: </span><span class="literal string interpol">%d</span><span class="literal string escape">\t</span><span class="literal string">Version: </span><span class="literal string interpol">%d</span><span class="literal string escape">\t</span><span class="literal string">SizeLow: </span><span class="literal string interpol">%d</span><span class="literal string escape">\t</span><span class="literal string">SizeHigh: </span><span class="literal string interpol">%d</span><span class="literal string escape">\t</span><span class="literal string">NumberOfObjects: </span><span class="literal string interpol">%d</span><span class="literal string escape">\t</span><span class="literal string">MaxRecord: </span><span class="literal string interpol">%d</span><span class="literal string escape">\t</span><span class="literal string">&quot;</span> <span class="operator">%</span><span class="punctuation">(</span> <span class="name">header</span><span class="punctuation">[</span><span class="literal number integer">0</span><span class="punctuation">],</span><span class="name">header</span><span class="punctuation">[</span><span class="literal number integer">1</span><span class="punctuation">],</span><span class="name">header</span><span class="punctuation">[</span><span class="literal number integer">2</span><span class="punctuation">],</span><span class="name">header</span><span class="punctuation">[</span><span class="literal number integer">3</span><span class="punctuation">],</span><span class="name">header</span><span class="punctuation">[</span><span class="literal number integer">4</span><span class="punctuation">],</span><span class="name">header</span><span class="punctuation">[</span><span class="literal number integer">5</span><span class="punctuation">],</span><span class="name">header</span><span class="punctuation">[</span><span class="literal number integer">6</span><span class="punctuation">])</span>
+
+<span class="keyword">if</span> <span class="name">__name__</span> <span class="operator">==</span> <span class="literal string">'__main__'</span><span class="punctuation">:</span>
+    <span class="keyword">if</span> <span class="name builtin">len</span><span class="punctuation">(</span><span class="name">sys</span><span class="operator">.</span><span class="name">argv</span><span class="punctuation">)</span> <span class="operator">&gt;</span> <span class="literal number integer">1</span><span class="punctuation">:</span>
+        <span class="name">Wmf</span><span class="punctuation">()</span><span class="operator">.</span><span class="name">decode</span><span class="punctuation">(</span><span class="name builtin">open</span><span class="punctuation">(</span><span class="name">sys</span><span class="operator">.</span><span class="name">argv</span><span class="punctuation">[</span><span class="literal number integer">1</span><span class="punctuation">],</span> <span class="literal string">'r'</span><span class="punctuation">)</span><span class="operator">.</span><span class="name">read</span><span class="punctuation">())</span>
+    <span class="keyword">else</span><span class="punctuation">:</span>
+        <span class="keyword">print</span> <span class="literal string">&quot;:: 没有指定任何 WMF 文件.&quot;</span>
+</pre>
+<pre class="literal-block">
+luozijun&#64;luozijun-LIFEBOOK-LH532 MS-Office研究 % python wmf.py Office文档样本/bad.wmf                                         [1]
+======================
+Raw: '\x01\x00\x00\x00l\x00\x00\x00\xfe\xff\xff\xff\xff\xff\xff\xff&gt;\x01'
+Type: 1 HeaderSize: 0   Version: 108    SizeLow: 0  SizeHigh: 65534 NumberOfObjects: 65535  MaxRecord: 4294967295
+luozijun&#64;luozijun-LIFEBOOK-LH532 MS-Office研究 % python wmf.py Office文档样本/good.wmf                                        [0]
+======================
+Raw: '\x01\x00\t\x00\x00\x03\x9c\x01\x00\x00\x02\x00\x94\x00\x00\x00\x00\x00'
+Type: 1 HeaderSize: 9   Version: 768    SizeLow: 412    SizeHigh: 0 NumberOfObjects: 2  MaxRecord: 148
+luozijun&#64;luozijun-LIFEBOOK-LH532 MS-Office研究 % python wmf.py Office文档样本/image3.wmf                                      [0]
+======================
+Raw: '\x01\x00\t\x00\x00\x03\t\x02\x00\x00\x04\x00\xa3\x00\x00\x00\x00\x00'
+Type: 1 HeaderSize: 9   Version: 768    SizeLow: 521    SizeHigh: 0 NumberOfObjects: 4  MaxRecord: 163
+</pre>
+</div>
+</div>
+</body>
+</html>
