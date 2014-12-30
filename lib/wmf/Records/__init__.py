@@ -52,6 +52,8 @@ class RecordBase:
         while run == True:
             
             try:
+                # Note: 目前以下示例代码还无法运行，需要 等待完成了 所有的 Record 类型基础数据录入和定义了以后才可以 得到整个 record 的数据长度
+                #             然后 才可以枚举出 records 列表
                 record_size, record_type  = unpack("IH", self.body[pos:pos+6] )
                 record_content = self.body[pos+6:pos+record_size]
                 
