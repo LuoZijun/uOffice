@@ -56,7 +56,7 @@ class RecordBase:
                     run = False
             except:
                 print hex(record_type)
-                print ":: Record Types Unknow ..."
+                print ":: Record Type ( %s ) Unknow ..." % hex(record_type)
         return records
     def count(self):
         # return records of this windows metafile
