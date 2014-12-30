@@ -2,92 +2,92 @@
 #-*- coding:utf-8 -*-
 
 
-def META_ESCAPE(data):
+class META_ESCAPE:
     pass
-def ABORTDOC(data):
+class ABORTDOC:
     pass
-def BEGIN_PATH(data):
+class BEGIN_PATH:
     pass
-def CHECK_JPEGFORMAT(data):
+class CHECK_JPEGFORMAT:
     pass
-def CHECK_PNGFORMAT(data):
+class CHECK_PNGFORMAT:
     pass
-def CLIP_TO_PATH(data):
+class CLIP_TO_PATH:
     pass
-def CLOSE_CHANNEL(data):
+class CLOSE_CHANNEL:
     pass
-def DOWNLOAD_FACE(data):
+class DOWNLOAD_FACE:
     pass
-def DOWNLOAD_HEADER(data):
+class DOWNLOAD_HEADER:
     pass
-def DRAW_PATTERNRECT(data):
+class DRAW_PATTERNRECT:
     pass
-def ENCAPSULATED_POSTSCRIPT(data):
+class ENCAPSULATED_POSTSCRIPT:
     pass
-def END_PATH(data):
+class END_PATH:
     pass
-def ENDDOC(data):
+class ENDDOC:
     pass
-def EPS_PRINTING(data):
+class EPS_PRINTING:
     pass
-def EXTTEXTOUT(data):
+class EXTTEXTOUT:
     pass
-def GET_COLORTABLE(data):
+class GET_COLORTABLE:
     pass
-def GET_DEVICEUNITS(data):
+class GET_DEVICEUNITS:
     pass
-def GET_EXTENDED_TEXTMETRICS(data):
+class GET_EXTENDED_TEXTMETRICS:
     pass
-def GET_FACENAME(data):
+class GET_FACENAME:
     pass
-def GET_PAIRKERNTABLE(data):
+class GET_PAIRKERNTABLE:
     pass
-def GET_PHYSPAGESIZE(data):
+class GET_PHYSPAGESIZE:
     pass
-def GET_PRINTINGOFFSET(data):
+class GET_PRINTINGOFFSET:
     pass
-def GET_PS_FEATURESETTING(data):
+class GET_PS_FEATURESETTING:
     pass
-def GET_SCALINGFACTOR(data):
+class GET_SCALINGFACTOR:
     pass
-def META_ESCAPE_ENHANCED_METAFILE(data):
+class META_ESCAPE_ENHANCED_METAFILE:
     pass
-def METAFILE_DRIVER(data):
+class METAFILE_DRIVER:
     pass
-def NEWFRAME(data):
+class NEWFRAME:
     pass
-def NEXTBAND(data):
+class NEXTBAND:
     pass
-def PASSTHROUGH(data):
+class PASSTHROUGH:
     pass
-def POSTSCRIPT_DATA(data):
+class POSTSCRIPT_DATA:
     pass
-def POSTSCRIPT_IDENTIFY(data):
+class POSTSCRIPT_IDENTIFY:
     pass
-def POSTSCRIPT_IGNORE(data):
+class POSTSCRIPT_IGNORE:
     pass
-def POSTSCRIPT_INJECTION(data):
+class POSTSCRIPT_INJECTION:
     pass
-def POSTSCRIPT_PASSTHROUGH(data):
+class POSTSCRIPT_PASSTHROUGH:
     pass
-def OPEN_CHANNEL(data):
+class OPEN_CHANNEL:
     pass
-def QUERY_DIBSUPPORT(data):
+class QUERY_DIBSUPPORT:
     pass
-def QUERY_ESCSUPPORT(data):
+class QUERY_ESCSUPPORT:
     pass
-def SET_COLORTABLE(data):
+class SET_COLORTABLE:
     pass
-def SET_COPYCOUNT(data):
+class SET_COPYCOUNT:
     pass
-def SET_LINECAP(data):
+class SET_LINECAP:
     pass
-def SET_LINEJOIN(data):
+class SET_LINEJOIN:
     pass
-def SET_MITERLIMIT(data):
+class SET_MITERLIMIT:
     pass
-def SPCLPASSTHROUGH2(data):
+class SPCLPASSTHROUGH2:
     pass
-def STARTDOC(data):
+class STARTDOC:
     pass
 

@@ -2,39 +2,39 @@
 #-*- coding:utf-8 -*-
 
 
-def META_ARC(data):
+class META_ARC:
     pass
-def META_CHORD(data):
+class META_CHORD:
     pass
-def META_ELLIPSE(data):
+class META_ELLIPSE:
     pass
-def META_EXTFLOODFILL(data):
+class META_EXTFLOODFILL:
     pass
-def META_EXTTEXTOUT(data):
+class META_EXTTEXTOUT:
     pass
-def META_FILLREGION(data):
+class META_FILLREGION:
     pass
-def META_FRAMEREGION(data):
+class META_FRAMEREGION:
     pass
-def META_INVERTREGION(data):
+class META_INVERTREGION:
     pass
-def META_PAINTREGION(data):
+class META_PAINTREGION:
     pass
-def META_PATBLT(data):
+class META_PATBLT:
     pass
-def META_PIE(data):
+class META_PIE:
     pass
-def META_POLYLINE(data):
+class META_POLYLINE:
     pass
-def META_POLYGON(data):
+class META_POLYGON:
     pass
-def META_POLYPOLYGON(data):
+class META_POLYPOLYGON:
     pass
-def META_RECTANGLE(data):
+class META_RECTANGLE:
     pass
-def META_ROUNDRECT(data):
+class META_ROUNDRECT:
     pass
-def META_SETPIXEL(data):
+class META_SETPIXEL:
     pass
-def META_TEXTOUT(data):
+class META_TEXTOUT:
     pass

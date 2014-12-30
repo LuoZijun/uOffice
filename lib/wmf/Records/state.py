@@ -2,66 +2,66 @@
 #-*- coding:utf-8 -*-
 
 
-def META_ANIMATEPALETTE(data):
+class META_ANIMATEPALETTE:
     pass
-def META_EXCLUDECLIPRECT(data):
+class META_EXCLUDECLIPRECT:
     pass
-def META_INTERSECTCLIPRECT(data):
+class META_INTERSECTCLIPRECT:
     pass
-def META_MOVETO(data):
+class META_MOVETO:
     pass
-def META_OFFSETCLIPRGN(data):
+class META_OFFSETCLIPRGN:
     pass
-def META_OFFSETVIEWPORTORG(data):
+class META_OFFSETVIEWPORTORG:
     pass
-def META_OFFSETWINDOWORG(data):
+class META_OFFSETWINDOWORG:
     pass
-def META_REALIZEPALETTE(data):
+class META_REALIZEPALETTE:
     pass
-def META_RESIZEPALETTE(data):
+class META_RESIZEPALETTE:
     pass
-def META_RESTOREDC(data):
+class META_RESTOREDC:
     pass
-def META_SAVEDC(data):
+class META_SAVEDC:
     pass
-def META_SCALEVIEWPORTEXT(data):
+class META_SCALEVIEWPORTEXT:
     pass
-def META_SCALEWINDOWEXT(data):
+class META_SCALEWINDOWEXT:
     pass
-def META_SETBKCOLOR(data):
+class META_SETBKCOLOR:
     pass
-def META_SETBKMODE(data):
+class META_SETBKMODE:
     pass
-def META_SETLAYOUT(data):
+class META_SETLAYOUT:
     pass
-def META_SETMAPMODE(data):
+class META_SETMAPMODE:
     pass
-def META_SETMAPPERFLAGS(data):
+class META_SETMAPPERFLAGS:
     pass
-def META_SETPALENTRIES(data):
+class META_SETPALENTRIES:
     pass
-def META_SETPOLYFILLMODE(data):
+class META_SETPOLYFILLMODE:
     pass
-def META_SETRELABS(data):
+class META_SETRELABS:
     pass
-def META_SETROP2(data):
+class META_SETROP2:
     pass
-def META_SETSTRETCHBLTMODE(data):
+class META_SETSTRETCHBLTMODE:
     pass
-def META_SETTEXTALIGN(data):
+class META_SETTEXTALIGN:
     pass
-def META_SETTEXTCHAREXTRA(data):
+class META_SETTEXTCHAREXTRA:
     pass
-def META_SETTEXTCOLOR(data):
+class META_SETTEXTCOLOR:
     pass
-def META_SETTEXTJUSTIFICATION(data):
+class META_SETTEXTJUSTIFICATION:
     pass
-def META_SETVIEWPORTEXT(data):
+class META_SETVIEWPORTEXT:
     pass
-def META_SETVIEWPORTORG(data):
+class META_SETVIEWPORTORG:
     pass
-def META_SETWINDOWEXT(data):
+class META_SETWINDOWEXT:
     pass
-def META_SETWINDOWORG(data):
+class META_SETWINDOWORG:
     pass
 
