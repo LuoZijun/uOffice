@@ -37,7 +37,7 @@ class Record(RecordBase):
     def type(self, record):
         # return record type ( RecordFunction )
         record_type = self.header(record)['type']
-        return {'type': record_type, 'function': RecordType.Record_Function[record_type]}
+        return {'type': record_type, 'function': RecordType.Record_Types[record_type]}
     def size(self, record):
         # return record size
         return self.header(record)['size']
