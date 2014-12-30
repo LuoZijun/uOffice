@@ -24,29 +24,51 @@ RecordFunction (2 bytes): A 16-bit unsigned integer that defines the type
        rdParam(variable): An optional place holder that is provided for
                           record-specific fields.
 """
-
+from struct import unpack
 import wmf.Constants.RecordType
 
 class RecordBase:
-    # data = windows metafile - windows metafile HEADER_RECORD( + Placeable_RECORD )
-    data = None
-    def __init__(self, data=None):
-        self.data = data
+    body = None # windows metafile - windows metafile HEADER_RECORD( + Placeable_RECORD )
+    def __init__(self, body=None):
+        assert type(body) == type('')
+        self.body = body
     #@staticmethod
-    def list(self):
-        # return records of this windows metafile
+
+    @classmethod
+    def _read(self, ):
+        # 处理单个 record
         pass
+    def list(self):
+        # return records of this windows metafile 
+        records = []
+        #data = self.body
+        pos = 0
+        run = True
+        while run == True:
+            data = self.body[pos:pos+6]
+            record_size, record_type  = unpack("IH", data)
+            record_content = self.body[pos+6:record_size]
+            pos += record_size
+            records.append( {'type': record_type, 'size': record_size, 'content': record_content} )
+            try:
+                if wmf.Constants.RecordType.Record_Types[record_type] == "META_EOF":
+                    print ":: META_EOF"
+                    run = False
+            except:
+                print hex(record_type)
+                print ":: Record Types Unknow ..."
+        return records
     def count(self):
         # return records of this windows metafile
         pass
 
 class Record(RecordBase):
-    def __init__(self, data=None):
-        RecordBase.__init__(self, data=data)
+    def __init__(self, body=None):
+        RecordBase.__init__(self, body=body)
     def type(self, record):
         # return record type ( RecordFunction )
         record_type = self.header(record)['type']
-        return {'type': record_type, 'function': RecordType.Record_Types[record_type]}
+        return {'type': record_type, 'function': wmf.Constants.RecordType.Record_Types[record_type]}
     def size(self, record):
         # return record size
         return self.header(record)['size']
@@ -55,6 +77,6 @@ class Record(RecordBase):
         header = self.header(record)
         return record[6:header['size']]
     def header(self, record):
-        # return record header ( size + type ) .
-        record_type, record_size = unpack("IH", record)
+        # return record header ( size + type ) .  6 bytes
+        record_size, record_type = unpack("IH", record)
         return {'type': record_type, 'size': record_size}

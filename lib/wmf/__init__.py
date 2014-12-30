@@ -23,7 +23,9 @@ class Wmf:
     def decode(self):
         # Decode Windows Metafile
         self.header = wmf.Records.control.header(self.metafile[0:18])
-        self.records = wmf.Records.Record(self.metafile[18:])
+        self.records = wmf.Records.Record(self.metafile[18:]).list()
+        print self.header
+        print self.records
 
 
 if __name__ == '__main__':

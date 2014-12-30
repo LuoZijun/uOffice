@@ -4,7 +4,7 @@
 
 import os,sys,time
 
-data = open("good.wmf", 'r').read()
+data = open("image3.wmf", 'r').read()
 
 os.chdir("/var/www")
 print ":: Now Work DIR: %s " % (os.getcwd())
