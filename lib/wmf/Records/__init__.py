@@ -45,20 +45,26 @@ class RecordBase:
         pos = 0
         run = True
         while run == True:
+            
             try:
                 record_size, record_type  = unpack("IH", self.body[pos:pos+6] )
-                record_content = self.body[pos+6:record_size]
-                pos += record_size
+                record_content = self.body[pos+6:pos+record_size-6]
+                
+                record = {'type': record_type, 'size': record_size, 'content': record_content}
+                records.append( record )
                 if wmf.Constants.RecordType.Record_Types[record_type] == "META_EOF":
                     print ":: META_EOF"
                     run = False
                 else:
-                    record = {'type': record_type, 'size': record_size, 'content': record_content}
-                    records.append( record )
-                    print record
+                    print ":: "
+                pos += record_size
             except:
-                break
+                #print e
+                print "*************************************************************************"
                 print ":: Record Type ( %s ) Unknow , Now POS at %d " % (hex(record_type), pos)
+                break
+            print record
+        print "========================================================================="
         return records
     def count(self):
         # return records of this windows metafile
