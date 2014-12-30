@@ -1,29 +1,34 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
-"""
+# During the playback of a WMF metafile, a playback device context exists that can be described as a
+# processing state in which every graphics object and property is defined. In the descriptions of WMF
+# records that follow in this section, an element of the playback device context can be referred to as a
+# "currently selected" graphics object or property. If a graphics object or property that is used in the
+# output operation specified by a record has not been explicitly selected, a default value MUST be
+# used. See Playback Device Context (section 3.1.5) for more information.
+# When a WMF metafile is processed, the order in which graphics output is performed MUST be the
+# same as the order of drawing records in the metafile. Thus, a given drawing command is always
+# rendered on top of the renderings of preceding commands.
+# The following packet definition specifies the generic structure of all WMF records except Control records.
 
-Python Data Format(pack/unpack):
-    b   8 bit signed integer
-    B   8 bit unsigned integer
-    h   16 bit signed integer
-    H   16 bit unsigned integer
-    l   32 bit signed integer
-    L   32 bit unsigned integer
-    q   64 bit signed integer
-    Q   64 bit unsigned integer
-    f   32 bit floating point number
-    d   64 bit floating point number
+# RecordSize    (4 bytes): A 32-bit unsigned integer that defines the number of 16-bit WORDs in the record.
+# RecordFunction(2 bytes): A 16-bit unsigned integer that defines the type of this record. The low-order 
+#                          byte MUST match the low-order byte of one of the values in the RecordType Enumeration.
+# rdParam      (variable): An optional place holder that is provided for record-specific fields.
 
-    RecordSize (4 bytes): A 32-bit unsigned integer that defines the number
-                          of 16-bit WORDs in the record.
-RecordFunction (2 bytes): A 16-bit unsigned integer that defines the type
-                          of this record. The low-order byte MUST match the
-                          low-order byte of one of the values in the RecordType
-                          Enumeration.
-       rdParam(variable): An optional place holder that is provided for
-                          record-specific fields.
-"""
+# Python Data Format(pack/unpack):
+#     b   8 bit signed integer
+#     B   8 bit unsigned integer
+#     h   16 bit signed integer
+#     H   16 bit unsigned integer
+#     l   32 bit signed integer
+#     L   32 bit unsigned integer
+#     q   64 bit signed integer
+#     Q   64 bit unsigned integer
+#     f   32 bit floating point number
+#     d   64 bit floating point number
+
 from struct import unpack
 import wmf.Constants.RecordType
 

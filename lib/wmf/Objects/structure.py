@@ -1,11 +1,6 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
-# The WMF Structure Objects specify data structures that are embedded in WMF objects and records.
-# Structure objects, unlike graphics objects, are not explicitly created or deleted; they are
-# components of more complex structures.
-
-
 """
 The Bitmap16 Object specifies information about the dimensions and color format of a bitmap.
 
