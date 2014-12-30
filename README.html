@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils 0.11: http://docutils.sourceforge.net/" />
 <title>微软DOCX格式分析</title>
 <meta name="date" content="2014/12/25" />
 <meta name="author" content="Luo Zijun" />
@@ -256,11 +256,11 @@ pre.literal-block, pre.doctest-block, pre.math, pre.code {
   margin-right: 2em }
 
 pre.code .ln { color: grey; } /* line numbers */
-pre.code, code { background-color: #eeeeee }
-pre.code .comment, code .comment { color: #5C6576 }
-pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
-pre.code .literal.string, code .literal.string { color: #0C5404 }
-pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code, code { background-color: #eeeeee;color:black; }
+pre.code .comment, code .comment { color: #408090; font-style:italic; }
+pre.code .keyword, code .keyword { color: #008000; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: red; }
+pre.code .name.builtin, code .name.builtin { color: #008000; }
 pre.code .deleted, code .deleted { background-color: #DEB0A1}
 pre.code .inserted, code .inserted { background-color: #A3D289}
 
@@ -581,8 +581,9 @@ METAVERSION300 = 0x0300</p>
 METAVERSION300: DIBs are supported.</p>
 </blockquote>
 <p><em>SizeLow (2 bytes):</em> A 16-bit unsigned integer that defines the low-order word of the number of 16-bit words in the entire metafile.</p>
-<p><em>SizeHigh (2 bytes):</em> A 16-bit unsigned integer that defines the high-order word of the number of 16-bit words in the entire metafile.
-一个16位无符号(unsigned integer)的整数  定义 high-order(高序位?)字符 在 16 位词的整个图元文件。</p>
+<p>Windows Metafile 文件大小采用 16-bit 无符号整数的 低序位 表示, 总共 2 字节.</p>
+<p><em>SizeHigh (2 bytes):</em> A 16-bit unsigned integer that defines the high-order word of the number of 16-bit words in the entire metafile.</p>
+<p>Windows Metafile 文件大小采用 16-bit 无符号整数的 高序位 表示, 总共 2 字节.</p>
 <p><em>NumberOfObjects (2 bytes):</em> A 16-bit unsigned integer that specifies the number of graphics objects that are defined in the entire metafile. These objects include brushes, pens and all the other fixed-length and variable-length objects specified in sections 2.2.1 and 2.2.2 .</p>
 <p><em>MaxRecord (4 bytes):</em> A 32-bit unsigned integer that specifies the size of the largest record used in the metafile (in 16-bit elements).</p>
 <p><em>NumberOfMembers (2 bytes):</em> A 16-bit unsigned integer that is not used. It SHOULD be 0x0000.</p>

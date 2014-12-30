@@ -125,8 +125,12 @@ The Windows Metafile Format META_HEADER record is the first record in a standard
 
 *SizeLow (2 bytes):* A 16-bit unsigned integer that defines the low-order word of the number of 16-bit words in the entire metafile.
 
+Windows Metafile 文件大小采用 16-bit 无符号整数的 低序位 表示, 总共 2 字节.
+
 *SizeHigh (2 bytes):* A 16-bit unsigned integer that defines the high-order word of the number of 16-bit words in the entire metafile.
-一个16位无符号(unsigned integer)的整数  定义 high-order(高序位?)字符 在 16 位词的整个图元文件。
+
+Windows Metafile 文件大小采用 16-bit 无符号整数的 高序位 表示, 总共 2 字节.
+
 
 *NumberOfObjects (2 bytes):* A 16-bit unsigned integer that specifies the number of graphics objects that are defined in the entire metafile. These objects include brushes, pens and all the other fixed-length and variable-length objects specified in sections 2.2.1 and 2.2.2 .
 
