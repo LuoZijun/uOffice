@@ -80,7 +80,7 @@ See section 2.3.2 for the specification of similar records.
 #@staticmethod
 """
 
-def header(data):
+def META_HEADER(data):
     # META_HEADER Record ( 18 bytes )
     assert len(data) == 18
     # header_size: A 16-bit unsigned integer that defines the number of 16-bit words in the header.
@@ -99,7 +99,7 @@ def header(data):
     'size_low': size_low, 'size_hight': size_hight, 'objects': objects, 'members': members, 'max_record': max_record}
 
 
-def eof(data):
+def META_EOF(data):
     # META_EOF Record ( 6 bytes )
     assert len(data) == 6
     # size ( 4 bytes ): A 32-bit unsigned integer that defines the number of 16-bit WORDs in the record.
@@ -108,7 +108,7 @@ def eof(data):
     size, function  = unpack("IH", data)
     return {'size': size, 'function': function}
 
-def placeable(data):
+def META_PLACEABLE(data):
     # META_PLACEABLE Record ( 22 bytes )
     # Key: 4bytes HWmf: 2bytes  BoundingBox: 8bytes Inch: 2bytes Reserved: 4bytes Checksum: 2bytes
     assert len(data) == 22

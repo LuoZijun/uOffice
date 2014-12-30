@@ -48,7 +48,7 @@ class RecordBase:
             
             try:
                 record_size, record_type  = unpack("IH", self.body[pos:pos+6] )
-                record_content = self.body[pos+6:pos+record_size-6]
+                record_content = self.body[pos+6:pos+record_size]
                 
                 record = {'type': record_type, 'size': record_size, 'content': record_content}
                 records.append( record )
