@@ -340,7 +340,7 @@ import wmf.Records.state
 import wmf.Records.object
 
 Record_Types = {
-    0x0000: "META_EOF",
+    0x0000: { "name": "META_EOF", "type": "0x0000", },
     0x0035: "META_REALIZEPALETTE",
     0x0037: "META_SETPALENTRIES",
     0x0102: "META_SETBKMODE",
