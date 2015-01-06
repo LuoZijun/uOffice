@@ -91,7 +91,7 @@ class META_BITBLT:
 	        #    source.
 	        Bitmap_Object_Size = (RecordSize + 2) * 2
 	        RasterOperation, YSrc, XSrc, Height, Width, YDest, XDest = unpack("Lhhhhhh", data[4:20])
-	        ## Bitmap Object decode In wmf.Object.Bitmap16
+	        ## Bitmap Object decode In wmf.Object.structure.Bitmap16
 	        # FIX: Bitmap Object is String ??
 	        Bitmap_Object = unpack("s"*Bitmap_Object_Size, data[20:Bitmap_Object_Size])
 	        record['RasterOperation'] = RasterOperation
