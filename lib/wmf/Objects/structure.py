@@ -25,6 +25,19 @@ of this field in bytes can be computed as follows.
 class Bitmap16:
     def __init__(self):
         pass
+    def decode(self, data):
+        obj = {}
+        Type, Width, Height, WidthBytes, Planes, BitsPixel = unpack("hhhhBB", data[0:10])
+        Bits_size = (((Width * BitsPixel + 15) >> 4) << 1) * Height
+        Bits = unpack("s"*Bits_size, data[10:Bits_size])
+        obj['Type'] = Type
+        obj['Width'] = Width
+        obj['Height'] = Height
+        obj['WidthBytes'] = WidthBytes
+        obj['Planes'] = Planes
+        obj['BitsPixel'] = BitsPixel
+        obj['Bits'] = Bits
+        return obj
 
 """
 The BitmapCoreHeader Object contains information about the dimensions and color format of a
