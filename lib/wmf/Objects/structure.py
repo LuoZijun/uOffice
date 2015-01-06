@@ -29,7 +29,7 @@ class Bitmap16:
         obj = {}
         Type, Width, Height, WidthBytes, Planes, BitsPixel = unpack("hhhhBB", data[0:10])
         Bits_size = (((Width * BitsPixel + 15) >> 4) << 1) * Height
-        Bits = unpack("s"*Bits_size, data[10:Bits_size])
+        Bits = unpack("s"*Bits_size, data[10:Bits_size+10])
         obj['Type'] = Type
         obj['Width'] = Width
         obj['Height'] = Height
