@@ -49,21 +49,61 @@ class META_BITBLT:
         #assert 
         pass
     def decode(self, data):
-        # With BMP
-        # RecordSize / RecordFunction / RasterOperation / YSrc / XSrc / Height / Width / YDest / XDest / Target (variable)
-        
-        # RecordFunction (2 bytes): A 16-bit unsigned integer that defines this WMF record type. The
-        #    low-order byte MUST match the low-order byte of the RecordType enumeration (section
-        #    2.1.1.1) value META_BITBLT. The high-order byte MUST contain a value equal to the
-        #    number of 16-bit WORDs in the record minus the number of WORDs in the RecordSize and
-        #    Target fields. That is:
-        #        RecordSize - (2 + (sizeof(Target)/2))
-        # Target (variable): A variable-sized Bitmap16 Object (section 2.2.2.1) that defines source
-        #    image content. This object MUST be specified, even if the raster operation does not require a
-        #    source.
-        unpack("LHLhhhhhh", data)
-        # With out BMP
-        # RecordSize / RecordFunction / RasterOperation / YSrc / XSrc (!Reserved!) / Height / Width / YDest / XDest
+    	record = {}
+        RecordSize, RecordFunction = unpack("LH", data[0:4]) # LHLhhhhhh
+        record['RecordSize'] = RecordSize
+	  	record['RecordFunction'] = RecordFunction
+
+        if RecordSize == ((RecordFunction >> 8) + 3):
+        	# Without Bitmap
+        	# RecordSize / RecordFunction / RasterOperation / YSrc / XSrc (!Reserved!) / Height / Width / YDest / XDest
+
+        	# RecordFunction (2 bytes): A 16-bit unsigned integer that defines this WMF record type. 
+        	#     The low-order byte MUST match the low-order byte of the RecordType enumeration (section 2.1.1.1) value META_BITBLT. 
+        	#     The high-order byte MUST contain a value equal to the number of 16-bit WORDs in the record minus the number of 
+        	#     WORDs in the RecordSize and RecordFunction fields. That is:
+        	#         RecordSize - 3
+        	# Reserved (2 bytes): This field MUST be ignored.
+        	# FIX: Reserved 2 bytes unsigned integer ??
+        	RasterOperation, YSrc, XSrc, Reserved, Height, Width, YDest, XDest = unpack("Lhhhhhhh", data[4:22])
+        	record['RasterOperation'] = RasterOperation
+        	record['YSrc'] = YSrc
+        	record['XSrc'] = XSrc
+        	record['Reserved'] = Reserved
+        	record['Height'] = Height
+        	record['Width'] = Width
+        	record['YDest'] = YDest
+        	record['XDest'] = XDest
+        	#return {'RasterOperation': RasterOperation, 'YSrc': YSrc, 'XSrc': XSrc, 'Reserved': Reserved, \
+        	#'Height': Height, 'Width': Width, 'YDest': YDest, 'XDest': XDest}
+        else:
+        	# With BMP
+        	# RecordSize / RecordFunction / RasterOperation / YSrc / XSrc / Height / Width / YDest / XDest / Target (variable)
+
+	        # RecordFunction (2 bytes): A 16-bit unsigned integer that defines this WMF record type. The
+	        #    low-order byte MUST match the low-order byte of the RecordType enumeration (section
+	        #    2.1.1.1) value META_BITBLT. The high-order byte MUST contain a value equal to the
+	        #    number of 16-bit WORDs in the record minus the number of WORDs in the RecordSize and
+	        #    Target fields. That is:
+	        #        RecordSize - (2 + (sizeof(Target)/2))
+	        # Target (variable): A variable-sized Bitmap16 Object (section 2.2.2.1) that defines source
+	        #    image content. This object MUST be specified, even if the raster operation does not require a
+	        #    source.
+	        Bitmap_Object_Size = (RecordSize + 2) * 2
+	        RasterOperation, YSrc, XSrc, Height, Width, YDest, XDest = unpack("Lhhhhhh", data[4:20])
+	        ## Bitmap Object decode In wmf.Object.Bitmap16
+	        # FIX: Bitmap Object is String ??
+	        Bitmap_Object = unpack("s"*Bitmap_Object_Size, data[20:Bitmap_Object_Size])
+	        record['RasterOperation'] = RasterOperation
+        	record['YSrc'] = YSrc
+        	record['XSrc'] = XSrc
+        	record['Height'] = Height
+        	record['Width'] = Width
+        	record['YDest'] = YDest
+        	record['XDest'] = XDest
+        	record['Target'] = Bitmap_Object
+	    return record
+
         
 class META_DIBBITBLT:
     def __init__(self, data):
