@@ -58,6 +58,16 @@ A DIB is specified by a DeviceIndependentBitmap Object (section 2.2.2.9).
 class BitmapCoreHeader:
     def __init__(self):
         pass
+    def decode(self, data):
+        obj = {}
+        HeaderSize, Width, Height, Planes, BitCount = unpack("LHHHH", data[0:12])
+        obj['HeaderSize'] = HeaderSize
+        obj['Width'] = Width
+        obj['Height'] = Height
+        obj['Planes'] = Planes # This value MUST be 0x0001.
+        obj['BitCount'] = BitCount
+
+        return obj
 
 """
 The BitmapInfoHeader Object contains information about the dimensions and color format of a
@@ -123,7 +133,35 @@ the color table.
 class BitmapInfoHeader:
     def __init__(self):
         pass
+    def decode(self, data):
+        """
+        Note:
+            Width
+            Height
 
+            Compression
+
+            ImageSize
+            ColorUsed
+
+            以上值有特别相互依赖关系！！！如若不满足，可以视为 无效的 对象（Object）
+
+        """
+        obj = {}
+        HeaderSize, Width, Height, Planes, BitCount, Compression, ImageSize, XPelsPerMeter, \
+        YPelsPerMeter, ColorUsed, ColorImportant = unpack("LllHHLLllLL", data[0:40])
+        obj['HeaderSize'] = HeaderSize
+        obj['Width'] = Width
+        obj['Height'] = Height
+        obj['Planes'] = Planes
+        obj['BitCount'] = BitCount
+        obj['Compression'] = Compression
+        obj['ImageSize'] = ImageSize
+        obj['XPelsPerMeter'] = XPelsPerMeter
+        obj['YPelsPerMeter'] = YPelsPerMeter
+        obj['ColorUsed'] = ColorUsed
+        obj['ColorImportant'] = ColorImportant
+        return obj
 
 """
 The BitmapV4Header Object contains information about the dimensions and color format of a
@@ -273,6 +311,54 @@ contiguous with the DIB header, unless this is a packed bitmap.
 class DeviceIndependentBitmap:
     def __init__(self):
         pass
+    def decode(self, data):
+        """
+        DIBHeaderInfo (variable): Either a BitmapCoreHeader Object (section 2.2.2.2) 
+            or a BitmapInfoHeader Object (section 2.2.2.3) that specifies information about the image.
+
+            翻译: DIBHeaderInfo 信息 对象是 BitmapCoreHeader 或 BitmapInfoHeader
+                  当 最开始的 32 bits 字段值 为 0x0000000C 时，相应的 头对象应该是 BitmapCoreHeader,
+                  否则 就是一个 BitmapInfoHeader 对象。
+
+            The first 32 bits of this field is the HeaderSize value. If it is 0x0000000C, 
+            then this is a BitmapCoreHeader; otherwise, this is a BitmapInfoHeader.
+
+        Colors (variable): An optional array of either RGBQuad Objects (section 2.2.2.20) 
+            or 16-bit unsigned integers that define a color table.
+            
+            The size and contents of this field SHOULD be determined from the metafile record 
+            or object that contains this DeviceIndependentBitmap and from information in the DIBHeaderInfo field. 
+
+            See ColorUsage Enumeration (section 2.1.1.6) and BitCount Enumeration (section 2.1.1.3) for additional details.
+
+        BitmapBuffer (variable): A buffer containing the image, which is not required to be contiguous 
+            with the DIB header, unless this is a packed bitmap.
+
+
+            UndefinedSpace(variable): AnoptionalfieldthatMUSTbeignored.IfthisDIBisa packed bitmap, 
+                this field MUST NOT be present.
+            aData (variable): An array of bytes that define the image.
+                
+                The size and format of this data is determined by information in the DIBHeaderInfo
+                field. If it is a BitmapCoreHeader, the size in bytes MUST be calculated as follows:
+                
+                (((Width * Planes * BitCount + 31) & ~31) / 8) * abs(Height)
+
+                This formula SHOULD also be used to calculate the size of aData when DIBHeaderInfo is 
+                a BitmapInfoHeader Object, using values from that object, but only if its Compression 
+                value is BI_RGB, BI_BITFIELDS, or BI_CMYK.
+
+                Otherwise, the size of aData MUST be the BitmapInfoHeader Object value ImageSize.
+        """
+        HeaderSize = unpack("L", data[0:4])
+        if HeaderSize == 0x0000000C:
+            # BitmapCoreHeader (12 bytes)
+            DIBHeaderInfo = BitmapCoreHeader().decode(data)
+            data = data[12:]
+        else:
+            # BitmapInfoHeader (40 bytes)
+            DIBHeaderInfo = BitmapInfoHeader().decode(data)
+            data = data[40:]
 
 """
 The LogBrush Object defines the style, color, and pattern of a brush. This object is used only in the
