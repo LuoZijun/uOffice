@@ -184,7 +184,8 @@ class META_SETDIBTODEV:
         DIB_Size = RecordSize - 
         # DIB (variable): A variable-sized DeviceIndependentBitmap Object (section 2.2.2.9) that is the source of the color data.
         # The source image in the DIB is specified in one of the following formats:
-        #    1. An array of pixels with a structure specified by the ColorUsage field and information in the DeviceIndependentBitmap header.
+        #    1. An array of pixels with a structure specified by the ColorUsage field and information
+        #       in the DeviceIndependentBitmap header.
         #    2. A JPEG image [JFIF]. <53>
         #    3. A PNG image [W3C-PNG]. <54>
         # See section 2.3.1 for the specification of additional bitmap records.
@@ -317,8 +318,5 @@ class META_STRETCHDIB:
         record['DIB'] = DIB
 
         return record
-
-
-
 
 
