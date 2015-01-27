@@ -1,0 +1,13 @@
+libreoffice --draw --convert-to .jpg /home/luozijun/ image100.emf
+libreoffice --draw --convert-to .svg /home/luozijun/ image100.emf
+libreoffice --draw --convert-to .png /home/luozijun/ image100.emf
+libreoffice --draw --convert-to .wmf /home/luozijun/ image100.emf
+wmf2x image100.
+wmf2x image100.emf
+wmf2x image100.wmf
+wmf2x image100..wmf
+wmf2x image100.wmf
+wmf2x image100.wmf
+wmf2eps image100.wmf
+wmf2svg image100.wmf
+
