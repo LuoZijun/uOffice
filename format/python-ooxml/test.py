@@ -11,7 +11,7 @@ from ooxml import parse, serialize, importer
 logging.basicConfig(filename='ooxml.log', level=logging.INFO)
 
 
-file_name = 'b2.docx'
+file_name = 'test.docx'
 
 dfile = ooxml.read_from_file(file_name)
 
