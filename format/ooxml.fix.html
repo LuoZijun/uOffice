@@ -5,6 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
 <title>OOXML解析</title>
+<meta name="date" content="2015/01/27 23:06" />
 <style type="text/css">
 
 /*
@@ -340,7 +341,25 @@ ul.auto-toc {
 <body>
 <div class="document" id="ooxml">
 <h1 class="title">OOXML解析</h1>
-
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr><th class="docinfo-name">Date:</th>
+<td>2015/01/27 23:06</td></tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id3">关于金山办公套件图片色彩失真问题</a></li>
+<li><a class="reference internal" href="#id2" id="id4">修正OOXML一览表</a><ul>
+<li><a class="reference internal" href="#parse-py" id="id5">parse.py</a></li>
+<li><a class="reference internal" href="#serialize-py" id="id6">serialize.py</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <p>python-ooxml 包在解析金山公司的WPS办公套件生成的docx格式的文档时，会漏解析一些XML元素。一下是发现的列表。</p>
 <ul class="simple">
 <li>&lt;w:p&gt; &lt;w:r&gt;&lt;w:r&gt;&lt;w:p&gt; (Python OOXML会把 &lt;w:r&gt;元素内容当作纯文本处理，但是WPS软件会把影像元素附加在&lt;w:p&gt;元素下面。比较合乎逻辑的做法应该是放在 &lt;w:drawing&gt;元素下面)</li>
@@ -353,7 +372,7 @@ ul.auto-toc {
 <li></li>
 </ul>
 <div class="section" id="id1">
-<h1>关于金山办公套件图片色彩失真问题</h1>
+<h1><a class="toc-backref" href="#id3">关于金山办公套件图片色彩失真问题</a></h1>
 <p>我们可以看看这个PNG 格式图片在 金山办公套件生成的 DOCX 格式文件中的 XML描述为:</p>
 <p>下面是一个 PNG 图片的描述。</p>
 <pre class="code xml literal-block">
@@ -421,9 +440,9 @@ ul.auto-toc {
 </pre>
 </div>
 <div class="section" id="id2">
-<h1>修正OOXML一览表</h1>
+<h1><a class="toc-backref" href="#id4">修正OOXML一览表</a></h1>
 <div class="section" id="parse-py">
-<h2>parse.py</h2>
+<h2><a class="toc-backref" href="#id5">parse.py</a></h2>
 <p>Add:</p>
 <pre class="code python literal-block">
 <span class="keyword">def</span> <span class="name function">parse_pict</span><span class="punctuation">(</span><span class="name">document</span><span class="punctuation">,</span> <span class="name">container</span><span class="punctuation">,</span> <span class="name">elem</span><span class="punctuation">):</span>
@@ -524,7 +543,7 @@ ul.auto-toc {
 </pre>
 </div>
 <div class="section" id="serialize-py">
-<h2>serialize.py</h2>
+<h2><a class="toc-backref" href="#id6">serialize.py</a></h2>
 <p>Change:</p>
 <pre class="code python literal-block">
 <span class="keyword">def</span> <span class="name function">serialize_image</span><span class="punctuation">(</span><span class="name">ctx</span><span class="punctuation">,</span> <span class="name">document</span><span class="punctuation">,</span> <span class="name">elem</span><span class="punctuation">,</span> <span class="name">root</span><span class="punctuation">):</span>
