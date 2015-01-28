@@ -109,16 +109,24 @@ parse.py
 Add:
 
 .. code:: python
-
+    
+    # 修正 金山(KingSoft) pict 元素以及样式表。
     def parse_pict(document, container, elem):
         """Parse pict element
         Fix KingSoft.
         """
         #<v:imagedata gain="65536f" blacklevel="0f" gamma="0" o:title="" r:id="rId5"/>
-        imagedata = elem.xpath('.//v:imagedata', namespaces=NAMESPACES)[0]        
-        _rid =  imagedata.attrib[_name('{{{r}}}id')]
+        # <v:shape id="图片 2" o:spid="_x0000_s1026" type="#_x0000_t75" 
+        # style="height:233.25pt;width:414.85pt;rotation:0f;" o:ole="f" fillcolor="#FFFFFF" 
+        # filled="f" o:preferrelative="t" stroked="f" coordorigin="0,0" coordsize="21600,21600">
+        
+        imagedata = elem.xpath('.//v:imagedata', namespaces=NAMESPACES)[0]
+        imagestyle_elem = elem.xpath('.//v:shape', namespaces=NAMESPACES)[0]
+        image_name = imagestyle_elem.attrib[_name('id')] # Chinese
+        image_style = imagestyle_elem.attrib[_name('style')] # Style for picture.
 
-        img = doc.Image(_rid)
+        _rid =  imagedata.attrib[_name('{{{r}}}id')]
+        img = doc.Image(_rid, image_style)
         container.elements.append(img)
 
     def parse_object(document, container, elem):
@@ -236,4 +244,21 @@ Change:
 
         return root
 
+doc.py
+^^^^^^^^^^^^^^^
+
+Change:
+
+
+.. code:: python
     
+    # 增加属性存储样式信息
+    class Image(Element):
+        "Represent image element."
+
+        def __init__(self, rid, style=''):
+            super(Image, self).__init__()
+            self.rid = rid
+            self.style = style
+        def value(self):
+            return self.rid

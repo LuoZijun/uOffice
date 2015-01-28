@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils 0.11: http://docutils.sourceforge.net/" />
 <title>OOXML解析</title>
 <meta name="date" content="2015/01/27 23:06" />
 <style type="text/css">
@@ -255,11 +255,11 @@ pre.literal-block, pre.doctest-block, pre.math, pre.code {
   margin-right: 2em }
 
 pre.code .ln { color: grey; } /* line numbers */
-pre.code, code { background-color: #eeeeee }
-pre.code .comment, code .comment { color: #5C6576 }
-pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
-pre.code .literal.string, code .literal.string { color: #0C5404 }
-pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code, code { background-color: #eeeeee;color:black; }
+pre.code .comment, code .comment { color: #408090; font-style:italic; }
+pre.code .keyword, code .keyword { color: #008000; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: red; }
+pre.code .name.builtin, code .name.builtin { color: #008000; }
 pre.code .deleted, code .deleted { background-color: #DEB0A1}
 pre.code .inserted, code .inserted { background-color: #A3D289}
 
@@ -356,6 +356,7 @@ ul.auto-toc {
 <li><a class="reference internal" href="#id2" id="id4">修正OOXML一览表</a><ul>
 <li><a class="reference internal" href="#parse-py" id="id5">parse.py</a></li>
 <li><a class="reference internal" href="#serialize-py" id="id6">serialize.py</a></li>
+<li><a class="reference internal" href="#doc-py" id="id7">doc.py</a></li>
 </ul>
 </li>
 </ul>
@@ -445,15 +446,23 @@ ul.auto-toc {
 <h2><a class="toc-backref" href="#id5">parse.py</a></h2>
 <p>Add:</p>
 <pre class="code python literal-block">
+<span class="comment"># 修正 金山(KingSoft) pict 元素以及样式表。</span>
 <span class="keyword">def</span> <span class="name function">parse_pict</span><span class="punctuation">(</span><span class="name">document</span><span class="punctuation">,</span> <span class="name">container</span><span class="punctuation">,</span> <span class="name">elem</span><span class="punctuation">):</span>
     <span class="literal string doc">&quot;&quot;&quot;Parse pict element
     Fix KingSoft.
     &quot;&quot;&quot;</span>
     <span class="comment">#&lt;v:imagedata gain=&quot;65536f&quot; blacklevel=&quot;0f&quot; gamma=&quot;0&quot; o:title=&quot;&quot; r:id=&quot;rId5&quot;/&gt;</span>
-    <span class="name">imagedata</span> <span class="operator">=</span> <span class="name">elem</span><span class="operator">.</span><span class="name">xpath</span><span class="punctuation">(</span><span class="literal string">'.//v:imagedata'</span><span class="punctuation">,</span> <span class="name">namespaces</span><span class="operator">=</span><span class="name">NAMESPACES</span><span class="punctuation">)[</span><span class="literal number integer">0</span><span class="punctuation">]</span>
-    <span class="name">_rid</span> <span class="operator">=</span>  <span class="name">imagedata</span><span class="operator">.</span><span class="name">attrib</span><span class="punctuation">[</span><span class="name">_name</span><span class="punctuation">(</span><span class="literal string">'{{{r}}}id'</span><span class="punctuation">)]</span>
+    <span class="comment"># &lt;v:shape id=&quot;图片 2&quot; o:spid=&quot;_x0000_s1026&quot; type=&quot;#_x0000_t75&quot;</span>
+    <span class="comment"># style=&quot;height:233.25pt;width:414.85pt;rotation:0f;&quot; o:ole=&quot;f&quot; fillcolor=&quot;#FFFFFF&quot;</span>
+    <span class="comment"># filled=&quot;f&quot; o:preferrelative=&quot;t&quot; stroked=&quot;f&quot; coordorigin=&quot;0,0&quot; coordsize=&quot;21600,21600&quot;&gt;</span>
 
-    <span class="name">img</span> <span class="operator">=</span> <span class="name">doc</span><span class="operator">.</span><span class="name">Image</span><span class="punctuation">(</span><span class="name">_rid</span><span class="punctuation">)</span>
+    <span class="name">imagedata</span> <span class="operator">=</span> <span class="name">elem</span><span class="operator">.</span><span class="name">xpath</span><span class="punctuation">(</span><span class="literal string">'.//v:imagedata'</span><span class="punctuation">,</span> <span class="name">namespaces</span><span class="operator">=</span><span class="name">NAMESPACES</span><span class="punctuation">)[</span><span class="literal number integer">0</span><span class="punctuation">]</span>
+    <span class="name">imagestyle_elem</span> <span class="operator">=</span> <span class="name">elem</span><span class="operator">.</span><span class="name">xpath</span><span class="punctuation">(</span><span class="literal string">'.//v:shape'</span><span class="punctuation">,</span> <span class="name">namespaces</span><span class="operator">=</span><span class="name">NAMESPACES</span><span class="punctuation">)[</span><span class="literal number integer">0</span><span class="punctuation">]</span>
+    <span class="name">image_name</span> <span class="operator">=</span> <span class="name">imagestyle_elem</span><span class="operator">.</span><span class="name">attrib</span><span class="punctuation">[</span><span class="name">_name</span><span class="punctuation">(</span><span class="literal string">'id'</span><span class="punctuation">)]</span> <span class="comment"># Chinese</span>
+    <span class="name">image_style</span> <span class="operator">=</span> <span class="name">imagestyle_elem</span><span class="operator">.</span><span class="name">attrib</span><span class="punctuation">[</span><span class="name">_name</span><span class="punctuation">(</span><span class="literal string">'style'</span><span class="punctuation">)]</span> <span class="comment"># Style for picture.</span>
+
+    <span class="name">_rid</span> <span class="operator">=</span>  <span class="name">imagedata</span><span class="operator">.</span><span class="name">attrib</span><span class="punctuation">[</span><span class="name">_name</span><span class="punctuation">(</span><span class="literal string">'{{{r}}}id'</span><span class="punctuation">)]</span>
+    <span class="name">img</span> <span class="operator">=</span> <span class="name">doc</span><span class="operator">.</span><span class="name">Image</span><span class="punctuation">(</span><span class="name">_rid</span><span class="punctuation">,</span> <span class="name">image_style</span><span class="punctuation">)</span>
     <span class="name">container</span><span class="operator">.</span><span class="name">elements</span><span class="operator">.</span><span class="name">append</span><span class="punctuation">(</span><span class="name">img</span><span class="punctuation">)</span>
 
 <span class="keyword">def</span> <span class="name function">parse_object</span><span class="punctuation">(</span><span class="name">document</span><span class="punctuation">,</span> <span class="name">container</span><span class="punctuation">,</span> <span class="name">elem</span><span class="punctuation">):</span>
@@ -565,6 +574,22 @@ ul.auto-toc {
     <span class="name">fire_hooks</span><span class="punctuation">(</span><span class="name">ctx</span><span class="punctuation">,</span> <span class="name">document</span><span class="punctuation">,</span> <span class="name">elem</span><span class="punctuation">,</span> <span class="name">_img</span><span class="punctuation">,</span> <span class="name">ctx</span><span class="operator">.</span><span class="name">get_hook</span><span class="punctuation">(</span><span class="literal string">'img'</span><span class="punctuation">))</span>
 
     <span class="keyword">return</span> <span class="name">root</span>
+</pre>
+</div>
+<div class="section" id="doc-py">
+<h2><a class="toc-backref" href="#id7">doc.py</a></h2>
+<p>Change:</p>
+<pre class="code python literal-block">
+<span class="comment"># 增加属性存储样式信息</span>
+<span class="keyword">class</span> <span class="name class">Image</span><span class="punctuation">(</span><span class="name">Element</span><span class="punctuation">):</span>
+    <span class="literal string">&quot;Represent image element.&quot;</span>
+
+    <span class="keyword">def</span> <span class="name function">__init__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">rid</span><span class="punctuation">,</span> <span class="name">style</span><span class="operator">=</span><span class="literal string">''</span><span class="punctuation">):</span>
+        <span class="name builtin">super</span><span class="punctuation">(</span><span class="name">Image</span><span class="punctuation">,</span> <span class="name builtin pseudo">self</span><span class="punctuation">)</span><span class="operator">.</span><span class="name">__init__</span><span class="punctuation">()</span>
+        <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">rid</span> <span class="operator">=</span> <span class="name">rid</span>
+        <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">style</span> <span class="operator">=</span> <span class="name">style</span>
+    <span class="keyword">def</span> <span class="name function">value</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">):</span>
+        <span class="keyword">return</span> <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">rid</span>
 </pre>
 </div>
 </div>
