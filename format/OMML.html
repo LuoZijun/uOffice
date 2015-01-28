@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.11: http://docutils.sourceforge.net/" />
+<title>OMML格式分析</title>
+<meta name="date" content="2015/01/28 14:05" />
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 7614 2013-02-21 15:55:51Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: grey; } /* line numbers */
+pre.code, code { background-color: #eeeeee;color:black; }
+pre.code .comment, code .comment { color: #408090; font-style:italic; }
+pre.code .keyword, code .keyword { color: #008000; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: red; }
+pre.code .name.builtin, code .name.builtin { color: #008000; }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="omml">
+<h1 class="title">OMML格式分析</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr><th class="docinfo-name">Date:</th>
+<td>2015/01/28 14:05</td></tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#mathml-and-ecma-math-omml" id="id2">MathML and Ecma Math (OMML)</a></li>
+</ul>
+</div>
+<p>介绍: <a class="reference external" href="https://en.wikipedia.org/wiki/Office_Open_XML_file_formats#Office_MathML_.28OMML.29">Office MathML (OMML)</a></p>
+<div class="section" id="mathml-and-ecma-math-omml">
+<h1><a class="toc-backref" href="#id2">MathML and Ecma Math (OMML)</a></h1>
+<p>Source: <a class="reference external" href="http://blogs.msdn.com/b/murrays/archive/2006/10/07/mathml-and-ecma-math-_2800_omml_2900_-.aspx">MSDN Blog</a></p>
+<p>Before comparing these two math XMLs, I'm excited to point you at Jennifer Michelstein's nifty post on Equations in Word 2007. It comes complete with instructive videos demonstrating how to enter mathematical expressions using the Equation Ribbon as well as using the linear format discussed in my earlier postings. Jennifer plans to add other posts on this subject to the Microsoft Office Word blog. It's worth pointing out that Outlook 2007 also has Word's math facility since Outlook 2007 uses Word 2007 for editing all email body text.</p>
+<p>I'm currently busily connecting RichEdit's math facility to external clients, using three file formats: RTF, MathML, OMML (Office MathML). These are all high-level formats compared to the linear format we use for equation input. Naturally RichEdit has to handle RTF math, since RTF has been RichEdit's main file format since RichEdit 1.0 shipped back in 1993 for the Windows 3.1 mail client. RTF math is essentially just OMML with RTF braces {} instead of XML tags. With it, it's easy to copy technical text to and from Word 2007. RichEdit is used by the Microsoft Math graphing calculator, which ships with the Encarta Student Edition, but the calculator communicates with RichEdit using RichEdit's text object model (TOM) instead of a file format. RichEdit also handles text in OneNote, but the math facility isn't turned on there yet.</p>
+<p>Meanwhile it would be great to connect RichEdit with the incredible math engines out there like OpenMaple, Mathematica, etc., and clearly MathML is the lingua franca for that. So I've been developing MathML and OMML writers for RichEdit and Misha (Mikhail Baranovsky) is developing the readers (they're harder!) In the process, we've been comparing these two math XMLs.</p>
+<p>Naturally there's been a lot of discussion as to why we even have <a class="reference external" href="http://www.ecma-international.org/news/TC45_current_work/Office%20Open%20XML%20Part%204%20-%20Markup%20Language%20Reference.docx">OMML</a> , since MathML is really good. Brian Jones has addressed that issue in some detail in his <a class="reference external" href="http://blogs.msdn.com/brian_jones/">Open XML Formats</a> blog. The main problem is that Word needs to allow users to embed arbitrary span-level material (basically anything you can put into a Word paragraph) in math zones and MathML is geared toward allowing only math in math zones. A subsidiary consideration is the desire to have an XML that corresponds closely to the internal format, aiding performance and offering readily achievable robustness. Since both MathML and OMML are XMLs, XSLTs can (and have) been created to convert one into the other. So it seems you can have your cake and eat it too. Thank you XML!</p>
+<p>The spirits of MathML and OMML are somewhat different. By MathML, I'm referring to the <a class="reference external" href="http://www.w3.org/TR/2003/REC-MathML2-20031021/chapter3.html">MathML</a> presentation tag set, rather than the content tag set, since our main emphasis is on presentation. A quick summary of the difference in spirits is</p>
+<ol class="arabic simple">
+<li>MathML built-up objects may be described by an infix notation, while OMML's are described by a prefix notation</li>
+<li>MathML built-up object arguments are defined positionally, while OMML's are tagged explicitly</li>
+</ol>
+<p>With MathML when you find an &lt;mrow&gt;, you look at the next tag(s) to see what's inside. If you find an &lt;mo&gt; entry, you have an operator, which you look up in your operator table to figure what kind of a possibly built-up object is involved. It could be an open fence (parentheses, brackets, braces, etc.), an n-ary operator, a function-apply (for trigonometric and other math functions), or one of many operators that don't get built up. For fences MathML also has the &lt;mfenced&gt; tag, which is essentially the same as OMML's delimiter &lt;d&gt; tag.</p>
+<p>Each way of representing fences has its advantages, the infix approach allowing embellished fences (such as underlined fences) and the &lt;mfenced&gt; approach allowing a sequence of separated arguments. OMML's &lt;d&gt; can't represent embellished fences, but fortunately for OMML, they aren't common. At least, we couldn't find any in my shelves of physics and math books, but you never know for sure about these mathematicians J. Built-up expressions like subscripts and superscripts are represented by prefix notations in both MathML and OMML.</p>
+<p>The following table summarizes the built-up objects in the Office math model along with the OMML and target MathML tags:</p>
+<pre class="literal-block">
+Built-up Office Math Object OMML tag    MathMl
+Accent          acc mover/munder
+Bar bar mover/munder
+Box         box menclose (approx)
+BoxedFormula        borderBox   menclose
+Delimiters  d   mfenced
+EquationArray   eqArr   mtable (with alignment groups)
+Fraction    f   mfrac
+FunctionApply   func    &amp;FunctionApply; (binary operator)
+LeftSubSup  sPre    mmultiscripts (special case of)
+LowerLimit  limLow  munder
+Matrix  m   mtable
+Nary    nary    mrow followed by n-ary mo
+Phantom phant   mphantom and/or mpadded
+Radical rad msqrt/mroot
+GroupChar   groupChr    mover/munder
+Subscript   sSub    msub
+SubSup  sSubSup msubsup
+Superscript sSup    msup
+UpperLimit  limUpp  mover
+</pre>
+<p>OMML tags are always written with a math namespace prefix like &quot;m:&quot; and I recommend this convention for MathML as well. The reason is that these XMLs are useful in many contexts, not just in HTML(5) and using namespace prefixes allows the XML parser to delegate to the appropriate tag-set owner.</p>
+<p>Comparing the two ways of representing the built-up fraction, we see how OMML has explicit argument tags, whereas MathML determines arguments by position. The built up version of the fraction a/b in OMML is represented by (aside from possible properties)</p>
+<pre class="literal-block">
+&lt;m:oMath xmlns:m=&quot;http://schemas.openxmlformats.org/officeDocument/2006/math&quot;&gt;
+&lt;m:f&gt;
+    &lt;m:num&gt;
+    &lt;m:r&gt;
+        &lt;m:t&gt;a&lt;/m:t&gt;
+    &lt;/m:r&gt;
+    &lt;/m:num&gt;
+    &lt;m:den&gt;
+    &lt;m:r&gt;
+        &lt;m:t&gt;b&lt;/m:t&gt;
+    &lt;/m:r&gt;
+    &lt;/m:den&gt;
+&lt;/m:f&gt;
+&lt;/m:oMath&gt;
+</pre>
+<p>where we see how the numerator and denominator are tagged explicitly. In MathML, these arguments are given by the next entity and the one after that, respectively:</p>
+<pre class="literal-block">
+&lt;m:mfrac&gt;
+&lt;m:mi&gt;a&lt;/m:mi&gt;
+&lt;m:mi&gt;b&lt;/m:mi&gt;
+&lt;/m:mfrac&gt;
+</pre>
+<p>This comparison reveals that OMML can be more verbose than MathML. A less verbose comparison results for the fraction (a+b)/c, since in OMML it's</p>
+<pre class="literal-block">
+&lt;m:f&gt;
+&lt;m:num&gt;
+    &lt;m:r&gt;&lt;m:t&gt;a+b&lt;/m:t&gt;&lt;/m:r&gt;
+&lt;/m:num&gt;
+&lt;m:den&gt;
+    &lt;m:r&gt;&lt;m:t&gt;c&lt;/m:t&gt;&lt;/m:r&gt;
+&lt;/m:den&gt;
+&lt;/m:f&gt;
+</pre>
+<p>whereas in MathML, it's</p>
+<pre class="literal-block">
+&lt;m:mfrac&gt;
+&lt;m:mrow&gt;
+    &lt;m:mi&gt;a&lt;/m:mi&gt;
+    &lt;m:mo&gt;+&lt;/m:mo&gt;
+    &lt;m:mi&gt;b&lt;/m:mi&gt;
+&lt;/m:mrow&gt;
+&lt;m:mi&gt;c&lt;/m:mi&gt;
+&lt;/m:mfrac&gt;
+</pre>
+<p>Here the &lt;m:mrow&gt; is needed for the numerator to make it the first entity following the &lt;m:mfrac&gt;. For both a/b and (a+b)/c, the linear format sure has the shortest representation!</p>
+<p>Another difference between MathML and OMML is in the positioning of the radical (root) degree and prescript arguments relative to their respective bases. In OMML these arguments are positioned so that the left and right arrow keys traverse the objects unidirectionally. Specifically for the radical, the degree argument precedes the radicand, while for MathML it follows the radicand. By having it precede, a right arrow key at the start of the radical moves into the degree and then into the radicand, exactly the way one would expect geometrically. Similarly OMML's prescripts precede the base, whereas in MathML's multiscripts object they follow the base.</p>
+</div>
+</div>
+</body>
+</html>
