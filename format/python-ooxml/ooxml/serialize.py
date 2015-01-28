@@ -242,7 +242,6 @@ def serialize_break(ctx, document, elem, root):
         _div = etree.SubElement(root, 'span')
         if ctx.options['embed_styles']:
             _div.set('style', 'page-break-after: always;')
-
     fire_hooks(ctx, document, elem, _div, ctx.get_hook('page_break'))
 
     return root
