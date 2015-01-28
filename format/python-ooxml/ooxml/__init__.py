@@ -46,7 +46,6 @@ def read_from_file(file_name):
     :Returns:
       Returns object of type :class:`ooxml.docx.DOCXFile`.
     """
-    print ":: I'm reading now ..."
     from .docxfile import DOCXFile
 
     dfile = DOCXFile(file_name)
