@@ -80,6 +80,24 @@ See section 2.3.2 for the specification of similar records.
 #@staticmethod
 """
 
+"""
+Type (2 bytes): A 16-bit unsigned integer that defines the type of metafile. It MUST be a value
+in the MetafileType enumeration (section 2.1.1.18).
+
+
+[MS-EMFPLUS].pdf
+
+The MetafileType Enumeration specifies where the metafile is stored.
+
+typedef enum
+{
+    MEMORYMETAFILE = 0x0001,
+    DISKMETAFILE = 0x0002
+} MetafileType;
+
+MEMORYMETAFILE: Metafile is stored in memory.
+DISKMETAFILE: Metafile is stored on disk.
+"""
 def META_HEADER(data):
     # META_HEADER Record ( 18 bytes )
     assert len(data) == 18
