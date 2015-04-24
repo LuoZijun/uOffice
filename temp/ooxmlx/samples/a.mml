@@ -1,0 +1,16 @@
+<m:oMath><m:r><m:t>a</m:t></m:r><m:box>
+<m:boxPr>
+<m:opEmu m:val="1"/>
+<m:aln m:val="1"/>
+<m:ctrlPr/>
+</m:boxPr>
+<m:e>
+<m:r>
+<m:t>==</m:t>
+</m:r>
+</m:e>
+</m:box>
+<m:r>
+<m:t>b</m:t>
+</m:r>
+</m:oMath>

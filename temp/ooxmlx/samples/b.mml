@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+ <semantics>
+  <mrow>
+   <mi mathvariant="italic">begin</mi>
+   <mrow>
+    <mn>22</mn>
+    <mo stretchy="false">∪</mo>
+    <mrow>
+     <mn>33</mn>
+     <mo>∖
+     </mo>
+     <mn>345345</mn>
+    </mrow>
+   </mrow>
+   <mrow>
+    <mn>56756.678</mn>
+    <mo stretchy="false">∧</mo>
+    <mn>678.7</mn>
+   </mrow>
+   <mrow>
+    <mo fence="true" stretchy="true">‖</mo>
+    <mrow>
+     <mi mathvariant="italic">kuohao</mi>
+    </mrow>
+    <mo fence="true" stretchy="true">‖</mo>
+   </mrow>
+   <mover>
+    <mover>
+     <mrow>
+      <mi mathvariant="italic">math</mi>
+      <mi mathvariant="italic">OMML</mi>
+      <mi mathvariant="italic">OOXML</mi>
+     </mrow>
+     <mo stretchy="true">⏞</mo>
+    </mover>
+    <mi mathvariant="italic">mark</mi>
+   </mover>
+  </mrow>
+  <annotation encoding="StarMath 5.0">begin 22 union 33 widebslash 345345 56756.678 and 678.7 left ldline kuohao right rdline {math OMML OOXML} overbrace {mark}  </annotation>
+ </semantics>
+</math>
