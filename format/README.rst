@@ -65,9 +65,9 @@ PowerPoint
 
 *Legacy*
 
-ppt – Legacy PowerPoint presentation
-pot – Legacy PowerPoint template
-pps – Legacy PowerPoint slideshow
+*   ppt – Legacy PowerPoint presentation
+*   pot – Legacy PowerPoint template
+*   pps – Legacy PowerPoint slideshow
 
 *OOXML*
 
@@ -94,7 +94,8 @@ Microsoft Access 2007 introduces a few new file extensions:
 Other
 ^^^^^^^^^^
 
-*Publisher*
+Publisher
+~~~~~~~~~
 
 *   pub - a Microsoft Publisher file extension
 
