@@ -5,6 +5,10 @@ import sys,os,time
 from lxml import etree
 import xmllib
 
+import convert
+import parse
+
+
 class Docx(object):
     def __init__(self, workspace):
         # zipfile object
@@ -15,7 +19,6 @@ class Docx(object):
         print self.workspace
     def convert(self):
         pass
-
 
 
 

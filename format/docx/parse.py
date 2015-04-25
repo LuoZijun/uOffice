@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
-class CustomXml(Docx):
+
+class CustomXml:
     pass
-class Relationship(Docx):
+class Relationship:
     pass
 
 class ContentType(Docx):
-    def __init__(self):
+    def __init__(self, context):
         pass
     def parse_contenttype(self):
         pass
@@ -44,4 +45,4 @@ class Word(Docx):
         pass
 
 
-    
+
