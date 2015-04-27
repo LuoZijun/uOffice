@@ -14,9 +14,7 @@ class Docx(object):
         # zipfile object
         self.workspace = workspace
     def parse(self):
-        print self
-        print dir(self)
-        print self.workspace
+        parse.Word(self.workspace)
     def convert(self):
         pass
 

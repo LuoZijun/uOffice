@@ -25,9 +25,9 @@ class DocProps(Docx):
         pass
 
 
-class Word(Docx):
-    def __init__(self):
-        pass
+class Word(object):
+    def __init__(self, workspace):
+        self.workspace = workspace
     def parse_relationship(self):
         pass
     def parse_style(self):
